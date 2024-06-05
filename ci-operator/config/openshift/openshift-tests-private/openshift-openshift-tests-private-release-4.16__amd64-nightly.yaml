@@ -2867,8 +2867,10 @@ tests:
     test:
     - chain: openshift-e2e-test-netobserv-qe
     workflow: cucushift-installer-rehearse-vsphere-ipi
-- as: telcov10n-hub-spoke-gitops-ztp
+- always_run: false
+  as: telcov10n-hub-spoke-gitops-ztp
   cluster: build05
+  optional: true
   steps:
     cluster_profile: equinix-ocp-metal-qe
     env:

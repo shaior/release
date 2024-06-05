@@ -666,8 +666,10 @@ tests:
     test:
     - chain: cucushift-installer-check-cluster-health
     workflow: cucushift-installer-rehearse-vsphere-ipi-zones
-- as: telcov10n-hub-spoke-gitops-ztp
+- always_run: false
+  as: telcov10n-hub-spoke-gitops-ztp
   cluster: build05
+  optional: true
   steps:
     cluster_profile: equinix-ocp-metal-qe
     env:
