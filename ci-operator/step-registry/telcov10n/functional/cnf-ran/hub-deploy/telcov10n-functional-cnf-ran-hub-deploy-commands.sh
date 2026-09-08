@@ -73,6 +73,11 @@ fi
 
 cd /eco-ci-cd
 
+if [[ -n "${MULTISTAGE_PARAM_OVERRIDE_RELEASE_AGE_MAX_DAYS:-}" ]]; then
+  echo "Applying Gangway override: RELEASE_AGE_MAX_DAYS=${MULTISTAGE_PARAM_OVERRIDE_RELEASE_AGE_MAX_DAYS}"
+  RELEASE_AGE_MAX_DAYS="${MULTISTAGE_PARAM_OVERRIDE_RELEASE_AGE_MAX_DAYS}"
+fi
+
 echo "Running deploy-ocp-sno for ${CLUSTER_NAME} (version=${VERSION})"
 EXTRA_VARS="release=${VERSION} cluster_name=${CLUSTER_NAME} disconnected=true release_age_max_days=${RELEASE_AGE_MAX_DAYS}"
 if [ "${DISABLE_INSIGHTS}" = "true" ]; then
