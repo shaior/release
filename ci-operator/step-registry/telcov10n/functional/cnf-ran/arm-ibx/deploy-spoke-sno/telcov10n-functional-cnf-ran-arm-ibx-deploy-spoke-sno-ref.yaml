@@ -1,0 +1,38 @@
+ref:
+  as: telcov10n-functional-cnf-ran-arm-ibx-deploy-spoke-sno
+  from_image:
+    namespace: telcov10n-ci
+    name: eco-ci-cd
+    tag: eco-ci-cd
+  commands: telcov10n-functional-cnf-ran-arm-ibx-deploy-spoke-sno-commands.sh
+  timeout: 5h
+  resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+  env:
+  - name: CLUSTER_NAME
+    default: ""
+    documentation: Hub cluster name; uses the hub inventory saved in SHARED_DIR
+  - name: SPOKE_CLUSTER
+    default: ""
+    documentation: Spoke cluster names in JSON array format
+  - name: ZTP_GIT_REPO
+    default: "https://gitlab.cee.redhat.com/telcov10n/ztp-site-configs-ci.git"
+    documentation: Git repository containing the ZTP configuration
+  - name: ZTP_GIT_BRANCH
+    default: ""
+    documentation: Required Git revision containing the configured ZTP paths
+  - name: ZTP_CLUSTERS_PATH
+    default: ""
+    documentation: Required clusters path relative to the Git repository root
+  - name: ZTP_POLICIES_PATH
+    default: ""
+    documentation: Required policies path relative to the Git repository root
+  documentation: |-
+    Deploy the ARM IBX spoke via ZTP on the existing hub. Read the clusters and
+    policies paths from job config, independently of the hub VERSION and spoke
+    name. For the seed phase use 4.20/arm-ibx-seed/clusterinstance and the shared
+    4.20/policygentemplate directory on the arm_ibx branch.
+    The deployment playbook waits for installation and policy compliance.
+    Preserve the ArgoCD applications and ManagedCluster for seed verification.

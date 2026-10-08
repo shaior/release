@@ -1,7 +1,11 @@
 workflow:
   as: telcov10n-functional-cnf-ran-arm-ibx
   documentation: |-
-    ARM IBX workflow for CNF RAN testing.
+    ARM IBX seed deployment for CNF RAN testing on kni-qe-133 and helix95.
+    Deploy the hub, mirror operators and multi architecture OCP images,
+    configure MinIO, then deploy the seed spoke from the ZTP paths in job config.
+    Leave the seed spoke managed by ACM and its ArgoCD applications in place
+    for verification before proceeding to seed image generation.
   steps:
     pre:
     # Hub setup — kni-qe-133 deployed at VERSION.
@@ -11,6 +15,6 @@ workflow:
     - ref: telcov10n-functional-cnf-ran-mirror-ocp-arch
 
     - ref: telcov10n-functional-cnf-ran-ibu-target-deploy-minio
-    - ref: telcov10n-functional-cnf-ran-deploy-spoke-sno
-    # Prune ArgoCD apps and remove the ARM IBX spoke from ACM ManagedCluster.
-    - ref: telcov10n-functional-cnf-ran-ibu-prune-argocd-apps
+    # Seed deployment. Paths are provided by the job config.
+    - ref: telcov10n-functional-cnf-ran-arm-ibx-deploy-spoke-sno
+    - ref: telcov10n-functional-cnf-ran-prune
